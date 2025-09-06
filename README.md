@@ -21,5 +21,16 @@ What do I want this Project to do?
     7. List all pokemon but only make calls on scroll for rendering to not overload server calls("Performance based challenge")
    
 
+###
+List of current issues
+    1. When searching type text doesn't match the third Evolution. (Ie Venusaur -> type shows fire, Charizard -> type shows water.)
+    2. If pokemon has multiple types only 1 is being shown.
+    3. State doesn't change properly (name & sprite img) if the next pokemon doesn't have an evolution. (Ie Articuno will stay on the UI when incrementing through the next 2 pokemon.)
 
+###
+Current Challenges:
+    1. When adding Stats endpoint is an array need to map through array to easily add information.
+    2. Same logic applies if more than 1 type.
+    3. How to spilt hooks based on what im calling.
+    4. Possibly adding React Query to handle calls/caching.
 

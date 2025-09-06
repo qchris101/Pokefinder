@@ -20,7 +20,7 @@
 
                 // const url = `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(idOrName)}`
                 const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(idOrName)}`)
-                console.log(res.data)
+                // console.log(res.data)
                 setSearch(res.data.id)
                 setName(res.data.name)
                 setImgFront(res.data?.sprites.other.showdown.front_default)
