@@ -1,12 +1,12 @@
     import { useState, useEffect, useCallback } from "react"
-    
+    import axios from "axios"
     
     
     export default function usePokemon(id) {
         const [ search, setSearch ] = useState('')
         const [ name, setName ] = useState('')
-        const [ imgFront, setImgFront] = useState('')
-        const [ imgBack, setImgBack] = useState('')
+        const [ imgFront, setImgFront] = useState(null)
+        const [ imgBack, setImgBack] = useState(null)
         const [ loading, setLoading] = useState(false)
         const [ error, setError ] = useState(null) 
         
@@ -18,16 +18,13 @@
                 setLoading(true)
                 setError(null)
 
-                const url = `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(idOrName)}`
-                const res = await fetch (url)
-                if(!res.ok) throw new Error(`Request Failed ${res.status} ${res.statusText}`)
-                const data = await res.json()
-                setSearch(data.id)
-                console.log("This is from usepokemon: ", data.id)
-                setName(data.name)
-                setImgFront(data?.sprites.other.showdown.front_default)
-                setImgBack(data?.sprites.other.showdown.back_default)
-                
+                // const url = `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(idOrName)}`
+                const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(idOrName)}`)
+                console.log(res.data)
+                setSearch(res.data.id)
+                setName(res.data.name)
+                setImgFront(res.data?.sprites.other.showdown.front_default)
+                setImgBack(res.data?.sprites.other.showdown.back_default)
             } catch(error) {
                 if( error.name !== "AbortError") setError(error.message || "Unknown Error")
                     setName('')

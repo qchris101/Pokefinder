@@ -5,8 +5,8 @@ import {  useState } from "react"
 
 
 function App() {
-  const [searchId, setSearchId] = useState(null)
-  
+  const randomId = Math.floor(Math.random()* 1000)
+  const [searchId, setSearchId] = useState(randomId)
   return (
     <>
     {/* Were passing state up via: 
