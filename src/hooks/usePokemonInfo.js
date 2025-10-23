@@ -19,7 +19,7 @@ export default function usePokemonInfo(id) {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${encodeURIComponent(idOrName)}`)
             setGen(res.data.generation.name)
             
-            console.log(res.data.generation.name)
+            // console.log(res.data.generation.name)
 
             // We need to pass the the evo_chain url because this is tied to the pokemon that is searched
             // pokemon Id != evolution-chain Id!!!
@@ -35,12 +35,12 @@ export default function usePokemonInfo(id) {
                 const evoChainRes = await axios.get(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(idOrName)}`)
                 // Multiple Types Problem
                 setType(evoChainRes.data.types[0].type.name)
-                console.log(evoChainRes.data.types[0].type.name)
+                // console.log(evoChainRes.data.types[0].type.name)
                 // PlaceHolder Sprites
-                console.log(evoChainRes.data.sprites.front_default)
+                // console.log(evoChainRes.data.sprites.front_default)
                 // console.log(idOrName)
                 // Need to refactor logic
-                setNextEvo(evoChainRes.data.name + " state not changing")
+                setNextEvo(evoChainRes.data.name + " Lets circle back to this and change functionality to show next pokemon")
                 setNextEvoSprite(evoChainRes.data.sprites.front_default)
             }
         
@@ -53,7 +53,7 @@ export default function usePokemonInfo(id) {
 
     useEffect(() => {
         if(id) fetchPokemonInfo(id)
-    }, [id, fetchPokemonInfo])
+    }, [id, fetchPokemonInfo,gen,type, nextEvo, nextEvoSprite])
 
     return{gen, nextEvo,type,nextEvoSprite, fetchPokemonInfo}
 }

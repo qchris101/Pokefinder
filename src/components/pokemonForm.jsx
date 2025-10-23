@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react"
 // import usePokemon from "../hooks/usePokemonApi"
 import PokemonCard from "./pokemonCard"
-import PokemonDisplay from "./pokemonDisplay"
+
 
 
 // This owns the input state

@@ -1,14 +1,15 @@
 
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import Navbar from "./components/navbar"
 import PokemonCard from "./components/pokemonCard"
 import {  useState } from "react"
-
 
 function App() {
   const randomId = Math.floor(Math.random()* 1000)
   const [searchId, setSearchId] = useState(randomId)
   return (
     <>
+   
     {/* Were passing state up via: 
       onSearch = setSearchId which is the main state that we need to manipulate
       we pass onSearch -> navbar.jsx -> pokemonForm.jsx the state onSearch is called in pokemonForm.jsx
