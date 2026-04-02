@@ -1,59 +1,34 @@
-// // import { useState } from "react"
-import usePokemon from "../hooks/usePokemonApi"
-import usePokemonInfo from "../hooks/usePokemonInfo"
-import usePokemonStats from "../hooks/usePokemonStats"
-import { QueryClient } from "@tanstack/react-query"
 
-export default function PokemonCard({searchId}) {
-   
-    const { pokemon } = usePokemon(searchId)
-    const {gen, nextEvo, nextEvoSprite, type} = usePokemonInfo(searchId)
-    const { stats } = usePokemonStats(searchId)
-    // console.log(stats)
+import { useQuery } from "@tanstack/react-query"
+
+const randomId = Math.floor(Math.random()* 1000)
     
+
+    
+export default function GetPokemon() {
+
+
+        const { isPending, error, data } = useQuery ({
+            queryKey: ["pokemon", randomId],
+            queryFn: () => 
+                fetch (`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(randomId)}`).then((res) => res.json(),)
+    })
+    console.log(randomId)
+    if (isPending) return "Loading..."
+
+    if (error) return "An error has occurred: " + error.message
+
     return (
-        <div className="card flex flex-col justify-between h-full min-h-[180px] p-4 border-4 max-w-sm mx-auto">
+        <div className="flex flex-col items-center">
+            <h1>{data.name}</h1>
+            <div>
+                <img src={data.sprites.other.showdown.front_default}/>
+            </div>
+            <div className="flex">
 
-                <div className=" p-4 mb-4 text-center">
-                        <h1>{pokemon?.name || "Loading..."}</h1>
-                        <h3>{type}</h3>
-                        <p>{gen}</p>
-                        {/* <p>Pokedex# {pokeNumber}</p>
-                        <img src={imgFront} alt="Pokemon Front"/>
-                        <img src={imgBack} alt="Pokemon Back"/> */}
-                </div>
-                <div>
-                        <h2> Stats:
-                            <p>
-                            Hp: {stats.hp}
-
-                            </p>
-                            <p>
-                            Attack: {stats.attack}
-                            </p>
-                            <p>
-                            Defense: {stats.defense}
-
-                            </p>
-                            <p>
-                            Special-Attack: {stats.specAttack}
-
-                            </p>
-                            <p>
-                            Special-Defense: {stats.specDef}
-
-                            </p>
-                            <p>
-                            Speed: {stats.spd}
-                                
-                            </p>
-                            </h2>
-    
-                </div>
-                <div>
-                    <p>Evolves into: {nextEvo} </p>
-                    <img src={nextEvoSprite} alt="Pokemon Front"/>
-                </div>
+            <p>{data.stats[0].stat.name}</p>
+            <p>{data.stats[0].base_stat}</p>
+            </div>
         </div>
     )
 }
